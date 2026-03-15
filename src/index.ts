@@ -136,21 +136,17 @@ async function getToken(jwt: string, installation: number): Promise<string> {
 }
 
 async function main(): Promise<void> {
-  try {
-    const appID: string = getInput('app_id', { required: true });
-    const appKey: string = getInput('app_key_pem', { required: true });
-    setSecret(appKey);
-    const jwt: string = getJWT(appID, appKey);
-    const repoOwnerID: number = parseInt(
-      process.env.GITHUB_REPOSITORY_OWNER_ID,
-    );
-    const installation: number = await getInstallation(jwt, repoOwnerID);
-    const token: string = await getToken(jwt, installation);
-    setSecret(token);
-    setOutput('token', token);
-  } catch (e) {
-    if (e instanceof Error) setFailed(e.message);
-  }
+  const appID: string = getInput('app_id', { required: true });
+  const appKey: string = getInput('app_key_pem', { required: true });
+  setSecret(appKey);
+  const jwt: string = getJWT(appID, appKey);
+  const repoOwnerID: number = parseInt(process.env.GITHUB_REPOSITORY_OWNER_ID);
+  const installation: number = await getInstallation(jwt, repoOwnerID);
+  const token: string = await getToken(jwt, installation);
+  setSecret(token);
+  setOutput('token', token);
 }
 
-main();
+main().catch((e) => {
+  if (e instanceof Error) setFailed(e.message);
+});
