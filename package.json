@@ -27,7 +27,7 @@
     "prebuild": "npm run clean",
     "build": "tsc",
     "prepackage": "npm run build",
-    "package": "esbuild --bundle --minify --platform=node --outfile=dist/index.cjs index.ts"
+    "package": "esbuild --bundle --minify --platform=node --outfile=dist/index.cjs src/index.ts"
   },
   "dependencies": {
     "@actions/core": "^3.0.0",
