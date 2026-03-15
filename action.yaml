@@ -1,4 +1,4 @@
-# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
 ---
 name: Get Github App Token
 author: W Anders <w@doubleu.codes>
@@ -14,7 +14,7 @@ outputs:
   token:
     description: The bearer token used to perform Actions as a Github App
 runs:
-  using: node20
+  using: node24
   main: dist/index.js
 branding:
   icon: lock
